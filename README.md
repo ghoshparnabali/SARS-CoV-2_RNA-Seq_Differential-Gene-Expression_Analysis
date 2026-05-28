@@ -1,0 +1,2 @@
+# SARS-CoV-2-RNA-Seq-Differential-Gene-Expression-DEG-Analysis
+This repository contains an end-to-end DEG Analysis pipeline built in RStudio to analyze host transcriptional responses to SARS-CoV-2 across multiple cell lines. Utilizing raw read counts from the GSE147507 benchmark study, this pipeline handles complex multi-condition experimental matrices and executes rigorous quality control protocols.
