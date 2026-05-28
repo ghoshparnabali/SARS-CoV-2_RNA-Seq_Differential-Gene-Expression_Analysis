@@ -1,9 +1,12 @@
 
 #Differential Gene Expression Analysis using DESeq2 
 
-if (!require("BiocManager", quietly = TRUE))
+if (!requireNamespace("BiocManager", quietly = TRUE))
 install.packages("BiocManager")
-BiocManager::install(c("DESeq2", "GEOquery","Biobase"))
+BiocManager::install(c("GEOquery","Biobase"))
+
+if (!requireNamespace("DESeq2", quietly = TRUE))
+BiocManager::install("DESeq2")
 
 if (!requireNamespace("ashr", quietly = TRUE))
 BiocManager::install("ashr")
@@ -14,6 +17,7 @@ BiocManager::install("pheatmap")
 if (!requireNamespace("ggrepel", quietly = TRUE))
 BiocManager::install("ggrepel")
 
+if (!requireNamespace("readr", quietly = TRUE))
 install.packages("readr")
 
 library("BiocManager")
@@ -27,8 +31,10 @@ library("DESeq2")
 library("readr")
 library("stringr")
 
+setwd("path/to/GSE147507_DGE_Analysis")
+
 #Extracting & Cleaning Expression Data
-COUNTS_raw <- read_tsv("C:/Users/Dell/Documents/GSE147507_RawReadCounts_Human.tsv", show_col_types = FALSE)
+COUNTS_raw <- read_tsv("datasets/GSE147507_RawReadCounts_Human.tsv", show_col_types = FALSE)
 COUNTS <- (as.data.frame(COUNTS_raw))
 rownames(COUNTS) <- COUNTS$...1
 COUNTS <- COUNTS[, -1]
@@ -40,7 +46,7 @@ summary(COUNTS[, 1:3])
 cat("Missing values in expression data:", sum(is.na(COUNTS)), "\n")
 
 #Extracting Metadata
-gse_parsed <- getGEO(filename = "C:/Users/Dell/Documents/GSE147507-GPL18573_series_matrix.txt")
+gse_parsed <- getGEO(filename = "datasets/GSE147507-GPL18573_series_matrix.txt")
 META <- pData(gse_parsed)
 unique(META$characteristics_ch1)
 
