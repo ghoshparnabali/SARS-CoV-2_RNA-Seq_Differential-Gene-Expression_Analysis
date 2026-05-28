@@ -35,7 +35,7 @@ library("readr")
 library("stringr")
 
 #Extracting & Cleaning Expression Data
-COUNTS_raw <- read_tsv(here("datasets", "GSE140507_RawReadCounts_Human.tsv"), show_col_types = FALSE)
+COUNTS_raw <- read_tsv(here("datasets", "GSE147507_RawReadCounts_Human.tsv"), show_col_types = FALSE)
 COUNTS <- (as.data.frame(COUNTS_raw))
 rownames(COUNTS) <- COUNTS$...1
 COUNTS <- COUNTS[, -1]
