@@ -133,7 +133,7 @@ norm_counts <- as.data.frame(norm_counts)
 vsd <- varianceStabilizingTransformation(prdds, blind = FALSE)
 
 # =======================================================================================================================
-# 6. QC VISUALIZATIONS
+# 5. QC VISUALIZATIONS
 # =======================================================================================================================
 
 # Scatter Plots: log2 vs VST
@@ -182,7 +182,7 @@ plotDispEsts(prdds, main = "Dispersion Plot",
              genecol="gray20", fitcol="red", finalcol="dodgerblue3")
 
 #========================================================================================================================
-# 7. DIFFERENTIAL GENE EXPRESSION (DGE) ANALYSIS & VISUALIZATIONS PER-CELL-LINE
+# 6. DIFFERENTIAL GENE EXPRESSION (DGE) ANALYSIS & VISUALIZATIONS PER-CELL-LINE
 #========================================================================================================================
 
 # Generating DESeq2 Results, Applying Shrinkage & Ordering Data by adjusted p-value
@@ -304,7 +304,7 @@ for (cfg in cell_line_config) {
 }
 
 #========================================================================================================================
-# 8. SESSION INFO
+# 7. SESSION INFO
 #========================================================================================================================
 
 sessionInfo()
