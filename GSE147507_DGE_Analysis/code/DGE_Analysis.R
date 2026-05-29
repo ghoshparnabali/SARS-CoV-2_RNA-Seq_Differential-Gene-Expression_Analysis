@@ -1,9 +1,9 @@
 
 #Differential Gene Expression Analysis using DESeq2
 
-#===============================================================================
+#========================================================================================================================
 # 1. PACKAGE INSTALLATION & LOADING
-#===============================================================================
+#========================================================================================================================
 
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 if (!requireNamespace("Biobase", quietly = TRUE)) BiocManager::install("Biobase")
@@ -27,9 +27,9 @@ library("readr")
 library("stringr")
 library("here")
 
-#===============================================================================
+#========================================================================================================================
 # 2. DATA LOADING & CLEANING
-#===============================================================================
+#========================================================================================================================
 
 # Expression Data
 COUNTS_raw <- read_tsv(here("datasets", "GSE147507_RawReadCounts_Human.tsv"), show_col_types = FALSE)
@@ -66,11 +66,12 @@ unique(META$group)
 META <- as.data.frame(META)
 rownames(META) <- META$title
 META <- META[colnames(COUNTS), ]
-if (all(colnames(COUNTS) == rownames(META))) {cat("Success! Names and order match perfectly.\n")} else {stop("Mismatch still exists. Double-check your column names.")}
+if (all(colnames(COUNTS) == rownames(META))) {cat("Success! Names and order match perfectly.\n")} else {
+  stop("Mismatch still exists. Double-check your column names.")}
 
-# ==============================================================================
+# ======================================================================================================================
 # 3. CELL LINE CONFIGURATION
-# ==============================================================================
+# ======================================================================================================================
 
 cell_line_config <- list(
   list(
@@ -107,9 +108,9 @@ cell_line_config <- list(
   )
 )
 
-#===============================================================================
+#======================================================================================================================
 # 4. DESeq2 IMPLEMENTATION
-#===============================================================================
+#=======================================================================================================================
 
 # Creating DESeq2 Dataset
 dds <- DESeqDataSetFromMatrix(countData = COUNTS, colData = META, design = ~ group)
@@ -131,9 +132,9 @@ norm_counts <- as.data.frame(norm_counts)
 # Transformation
 vsd <- varianceStabilizingTransformation(prdds, blind = FALSE)
 
-# ==============================================================================
+# =======================================================================================================================
 # 6. QC VISUALIZATIONS
-# ==============================================================================
+# =======================================================================================================================
 
 # Scatter Plots: log2 vs VST
 par(mfrow=c(1, 2))
@@ -146,7 +147,7 @@ par(mfrow=c(1, 2))
 hist(counts(prdds))
 hist(assay(vsd))
 
-# Sample-to-sample distance heatmaps (one per cell line)
+# Sample-to-Sample Distance Heatmaps (one per cell line)
 plot_sample_dist <- function(vsd, META, cell_line_id, display_name, dist_palette) {
   samples <- rownames(META[META$`cell line:ch1` == cell_line_id, ])
   vsd_sub <- vsd[, samples]
@@ -166,7 +167,7 @@ for (cfg in cell_line_config) {
   plot_sample_dist(vsd, META, cfg$id, cfg$display_name, cfg$dist_palette)
 }
 
-#PCA Plot
+# PCA Plot
 pca_data <- plotPCA(vsd, intgroup = c("group"), returnData = TRUE)
 ggplot(pca_data, aes(x = PC1, y = PC2)) +
   geom_point(size = 3, aes(color = group)) +
@@ -175,14 +176,14 @@ ggplot(pca_data, aes(x = PC1, y = PC2)) +
   theme_minimal() +
   ggtitle("PCA by Cell Line and Treatment")
 
-#Dispersion Plot
+# Dispersion Plot
 par(mfrow=c(1, 1))
 plotDispEsts(prdds, main = "Dispersion Plot",
              genecol="gray20", fitcol="red", finalcol="dodgerblue3")
 
-#===============================================================================
+#========================================================================================================================
 # 7. DIFFERENTIAL GENE EXPRESSION (DGE) ANALYSIS & VISUALIZATIONS PER-CELL-LINE
-#===============================================================================
+#========================================================================================================================
 
 # Generating DESeq2 Results, Applying Shrinkage & Ordering Data by adjusted p-value
 get_dge_results <- function(prdds, treated, control) {
@@ -298,12 +299,13 @@ for (cfg in cell_line_config) {
   sig_genes[[cfg$id]]$status <- ifelse(sig_genes[[cfg$id]]$log2FoldChange > 0, "Upregulated", "Downregulated")
   sig_genes[[cfg$id]]$gene_id <- rownames(sig_genes[[cfg$id]])
   sig_genes[[cfg$id]] <- sig_genes[[cfg$id]][, c("gene_id","baseMean","log2FoldChange","lfcSE","pvalue","padj","status")]
-  write.table(sig_genes[[cfg$id]], file = paste0("results/significant_DGE_across_", cfg$display_name,".csv"), sep = ",", row.names = FALSE, quote = FALSE)
+  write.table(sig_genes[[cfg$id]], file = paste0(
+    "results/significant_DGE_across_", cfg$display_name,".csv"), sep = ",", row.names = FALSE, quote = FALSE)
 }
 
-#===============================================================================
+#========================================================================================================================
 # 8. SESSION INFO
-#===============================================================================
+#========================================================================================================================
 
 sessionInfo()
 # R version 4.6.0 (2026-04-24 ucrt)
@@ -313,4 +315,4 @@ sessionInfo()
 # Matrix products: default
 # LAPACK version 3.12.1
 
-#===============================================================================
+#========================================================================================================================
