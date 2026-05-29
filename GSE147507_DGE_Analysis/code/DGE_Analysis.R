@@ -5,10 +5,9 @@
 # 1. PACKAGE INSTALLATION & LOADING
 #===============================================================================
 
-if (!require("BiocManager", quietly = TRUE))
-install.packages("BiocManager")
-BiocManager::install(c("GEOquery","Biobase"))
-
+if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+if (!requireNamespace("Biobase", quietly = TRUE)) BiocManager::install("Biobase")
+if (!requireNamespace("GEOquery", quietly = TRUE)) BiocManager::install("GEOquery")
 if (!requireNamespace("DESeq2", quietly = TRUE)) BiocManager::install("DESeq2")
 if (!requireNamespace("ashr", quietly = TRUE)) BiocManager::install("ashr")
 if (!requireNamespace("pheatmap", quietly = TRUE)) BiocManager::install("pheatmap")
@@ -200,7 +199,6 @@ res <- lapply(cell_line_config, function(cfg) {
 
 names(res) <- sapply(cell_line_config, function(cfg) cfg$id)
 
-
 # MA Plots Comparison
 par(mfrow=c(2, 2))
 for (cfg in cell_line_config) {
@@ -309,6 +307,7 @@ for (cfg in cell_line_config) {
 
 sessionInfo()
 # R version 4.6.0 (2026-04-24 ucrt)
+# Bioconductor version 3.23 (BiocManager 1.30.27)
 # Platform: x86_64-w64-mingw32/x64
 # Running under: Windows 11 x64 (build 26200)
 # Matrix products: default
