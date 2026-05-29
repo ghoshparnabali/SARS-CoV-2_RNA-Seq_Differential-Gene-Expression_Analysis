@@ -33,7 +33,7 @@ library("here")
 
 # Expression Data
 COUNTS_raw <- read_tsv(here("datasets", "GSE147507_RawReadCounts_Human.tsv"), show_col_types = FALSE)
-COUNTS <- (as.data.frame(COUNTS_raw))
+COUNTS <- as.data.frame(COUNTS_raw)
 rownames(COUNTS) <- COUNTS$...1
 COUNTS <- COUNTS[, -1]
 COUNTS <- round(COUNTS)
@@ -66,7 +66,9 @@ unique(META$group)
 META <- as.data.frame(META)
 rownames(META) <- META$title
 META <- META[colnames(COUNTS), ]
-if (all(colnames(COUNTS) == rownames(META))) {cat("Success! Names and order match perfectly.\n")} else {
+if (all(colnames(COUNTS) == rownames(META))) {
+  cat("Success! Names and order match perfectly.\n")
+} else {
   stop("Mismatch still exists. Double-check your column names.")}
 
 # =======================================================================================================================
@@ -251,8 +253,8 @@ up_genes    <- list()
 down_genes  <- list()
 
 for (cfg in cell_line_config) {
-    samples_to_keep <- (rownames(META[META$group %in% c(cfg$treated_group, cfg$control_group), ]))
-    vsd_subsets[[cfg$id]] <- (vsd[, samples_to_keep])
+    samples_to_keep <- rownames(META[META$group %in% c(cfg$treated_group, cfg$control_group), ])
+    vsd_subsets[[cfg$id]] <- vsd[, samples_to_keep]
     
     sig <- as.data.frame(res[[cfg$id]][res[[cfg$id]]$padj < 0.05 & abs(res[[cfg$id]]$log2FoldChange) > 1, ])
     sig_genes[[cfg$id]] <- sig
