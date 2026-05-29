@@ -1,5 +1,5 @@
 
-#Differential Gene Expression Analysis using DESeq2
+# Differential Gene Expression Analysis using DESeq2
 
 #========================================================================================================================
 # 1. PACKAGE INSTALLATION & LOADING
@@ -114,7 +114,7 @@ cell_line_config <- list(
 
 # Creating DESeq2 Dataset
 dds <- DESeqDataSetFromMatrix(countData = COUNTS, colData = META, design = ~ group)
-cat("Dimensions of before Filtering:", dim(dds), "\n")
+cat("Dimensions before Filtering:", dim(dds), "\n")
 
 # Filtering low count Genes
 threshold <- 10
@@ -242,7 +242,6 @@ for (cfg in cell_line_config) {
                       aes(label = rownames(top_labels)),
                       size = 2.5, max.overlaps = 20)
   )
-  res[[cfg$id]] <- tmp 
 }
 
 # Extracting Significant Genes
@@ -293,7 +292,7 @@ for (cfg in cell_line_config) {
 }
 
 # Creating DGE Analysis Files
-if (!file.exists("results")) {dir.create("results")}
+if (!dir.exists("results")) {dir.create("results")}
 
 for (cfg in cell_line_config) {
   sig_genes[[cfg$id]]$status <- ifelse(sig_genes[[cfg$id]]$log2FoldChange > 0, "Upregulated", "Downregulated")
