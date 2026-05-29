@@ -109,7 +109,7 @@ if (!requireNamespace("here", quietly = TRUE)) install.packages("here")
 ## How to Reproduce
 
 1. Clone this repository: https://github.com/ghoshparnabali/SARS-CoV-2_RNA-Seq_Differential-Gene-Expression_Analysis
-2. Open `GSE147507_DGE_Analysis/code/DGE Analysis.R` in RStudio.
+2. Open `GSE147507_DGE_Analysis/code/DGE_Analysis.R` in RStudio.
 3. Install all required packages (see Dependencies above).
 4. Run the script. DGE result CSV files will be saved to a `results/` folder in the working directory. All visualisations will be rendered in RStudio's plot pane and can be exported manually from there.
 
