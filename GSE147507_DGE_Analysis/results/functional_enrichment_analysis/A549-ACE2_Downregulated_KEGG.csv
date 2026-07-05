@@ -1,0 +1,2 @@
+"category","subcategory","ID","Description","GeneRatio","BgRatio","RichFactor","FoldEnrichment","zScore","pvalue","p.adjust","qvalue","geneID","Count"
+"Metabolism","Metabolism of other amino acids","hsa00480","Glutathione metabolism","3/8","59/9411",0.0508474576271186,59.8156779661017,13.2182344730207,1.28192442516615e-05,0.00451237397658485,0.00451237397658485,"2539/2878/2944",3

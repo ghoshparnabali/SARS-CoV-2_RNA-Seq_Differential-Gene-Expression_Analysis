@@ -1,0 +1,4 @@
+"category","subcategory","ID","Description","GeneRatio","BgRatio","RichFactor","FoldEnrichment","zScore","pvalue","p.adjust","qvalue","geneID","Count"
+"Human Diseases","Substance dependence","hsa05031","Amphetamine addiction","3/9","69/9411",0.0434782608695652,45.463768115942,11.4687694231294,3.07047872650846e-05,0.0108080851173098,0.0108080851173098,"2353/2354/775",3
+"Organismal Systems","Immune system","hsa04657","IL-17 signaling pathway","3/9","94/9411",0.0319148936170213,33.3723404255319,9.75901354592316,7.76168335557054e-05,0.0136605627058041,0.0136605627058041,"2353/2354/6278",3
+"Organismal Systems","Development and regeneration","hsa04380","Osteoclast differentiation","3/9","142/9411",0.0211267605633803,22.0915492957746,7.83505693063941,0.000264337516546324,0.0310156019414354,0.0310156019414354,"2353/2354/3932",3
