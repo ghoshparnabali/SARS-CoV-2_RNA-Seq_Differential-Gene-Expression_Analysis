@@ -98,7 +98,7 @@ This repository contains an end-to-end RNA-Seq DGE Analysis pipeline built in RS
 
 ##### *Downregulated gene sets did not yield significant GO BP enrichment in any cell line due to small gene set sizes, and are therefore not included in this comparison.*
 
-## Reflections
+## Notes on Development
 Building this pipeline independently required reconciling a non-trivial challenge at the design stage: GSE147507 includes not just four cell lines and two treatment conditions, but additional viral stimuli (IAV, RSV) that needed to be accounted for without confounding the SARS-CoV-2 comparisons. The solution was a single composite group factor encoding all sample combinations, from which specific contrasts were extracted — a design that keeps the dispersion model honest while allowing surgical pairwise testing. The most unexpected finding was not in the high-DEG models but in NHBE: the near-complete transcriptional silence in primary airway cells, and the subsequent absence of enrichable gene sets, forced a more careful biological interpretation than a straightforward pathway list would have. Learning to present a null enrichment result as biologically meaningful, rather than as a pipeline shortcoming, was the most analytically valuable outcome of this project.
 
 ---
